@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a href="#" class="navbar-brand">
       <img src="../assets/logo.png" alt="logo" width="30" height="30" />
-      Boutique
+      Bobo
     </a>
     <button class="navbar-toggler">
       <span class="navbar-toggler-icon"></span>
