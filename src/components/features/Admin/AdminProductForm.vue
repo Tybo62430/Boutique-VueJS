@@ -16,11 +16,8 @@
     </div>
     <div class="form-group">
       <label>Prix</label>
-      <input v-model="form.price" type="number" class="form-control" />
+      <input v-model.number="form.price" type="number" class="form-control" />
     </div>
-    <!-- <pre>
-      {{ $data }}
-    </pre> -->
     <ul v-if="errors.length">
       <li class="alert alert-danger" v-for="error in errors" :key="error">
         {{ error }}
@@ -31,6 +28,8 @@
 </template>
 
 <script>
+import { eventBus } from "../../../main";
+
 export default {
   data() {
     return {
@@ -47,8 +46,18 @@ export default {
     trySubmit(e) {
       e.preventDefault();
       if (this.formIsValid()) {
-        console.log(this.form);
+        eventBus.addProduct({ ...this.form });
+        this.resetForm();
+        eventBus.changePage("User");
       }
+    },
+    resetForm() {
+      this.form = {
+        img: "",
+        title: "",
+        description: "",
+        price: "",
+      };
     },
     formIsValid() {
       this.errors = [];
