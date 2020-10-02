@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <the-header></the-header>
-    <user></user>
-    <admin></admin>
+    <div class="d-flex flex-column w-100">
+      <component :is="page"></component>
+    </div>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import TheHeader from "./components/TheHeader.vue";
 import User from "./components/features/User/User.vue";
 import Admin from "./components/features/Admin/Admin.vue";
+import { eventBus } from "./main";
 
 export default {
   name: "App",
@@ -17,6 +19,16 @@ export default {
     TheHeader,
     User,
     Admin,
+  },
+  data() {
+    return {
+      page: eventBus.page,
+    };
+  },
+  created() {
+    eventBus.$on("update:page", (page) => {
+      this.page = page;
+    });
   },
 };
 </script>
