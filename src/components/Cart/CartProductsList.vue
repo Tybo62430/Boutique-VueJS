@@ -6,7 +6,10 @@
       :key="item.id"
       :item="item"
     ></cart-product-item>
-    <hr class="w-100" />
+    <template v-if="cart.length">
+      <hr class="w-100" />
+      <span>Total: {{ total }} €</span>
+    </template>
   </div>
 </template>
 
@@ -18,6 +21,14 @@ export default {
     CartProductItem,
   },
   props: ["cart"],
+  computed: {
+    total() {
+      return this.cart.reduce((acc, v) => {
+        acc += v.price;
+        return acc;
+      }, 0);
+    },
+  },
 };
 </script>
 
