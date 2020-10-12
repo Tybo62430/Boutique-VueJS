@@ -10,7 +10,7 @@
       <p>{{ product.decription }}</p>
     </div>
     <div>
-      <span>{{ product.price }}</span>
+      <span>{{ product.price | price }}</span>
       <button
         class="btn btn-primary btn-sm float-right"
         @click="addProductToCart"
