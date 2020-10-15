@@ -2,6 +2,10 @@ import Vue from "vue";
 import App from "./App.vue";
 import * as Filters from "./Utils/filters";
 import router from "./router";
+import axios from "axios";
+
+Vue.config.productionTip = false;
+Vue.prototype.$http = axios;
 
 Object.keys(Filters).forEach((f) => {
   Vue.filter(f, Filters[f]);
@@ -11,35 +15,7 @@ Vue.config.productionTip = false;
 
 export const eventBus = new Vue({
   data: {
-    products: [
-      {
-        id: "1",
-        img:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS7ekQ3gBH4qgpA_rFjIi5BRHelutd--Q0xhf76XENxHC_gpsIZA",
-        title: "MacBook",
-        description:
-          "Quand nous avons créé le MacBook, nous avons tout simplement tenté l impossible.C est le plus fin et le plus léger de nos ordinateurs portables",
-        price: 1500,
-      },
-      {
-        id: "2",
-        img:
-          "https://static.fnac-static.com/multimedia/Images/FR/MDM/e2/0e/1a/1707746/1540-0/tsp20180327114010/PC-Portable-Gaming-Acer-Predator-21-X-GX21-71-76VC-21-Incurve.jpg",
-        title: "Predator",
-        description:
-          "The GPU. The source of any competent, powerful gaming machine. With next-gen solutions from NVIDIA® and AMD, this source is overflowing.",
-        price: 2300,
-      },
-      {
-        id: "3",
-        img:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS7ekQ3gBH4qgpA_rFjIi5BRHelutd--Q0xhf76XENxHC_gpsIZA",
-        title: "MacBook",
-        description:
-          "Quand nous avons créé le MacBook, nous avons tout simplement tenté l impossible.C est le plus fin et le plus léger de nos ordinateurs portables",
-        price: 1500,
-      },
-    ],
+    products: [],
     cart: [],
     page: "User",
   },
@@ -64,6 +40,69 @@ export const eventBus = new Vue({
         { ...product, id: this.products.length + 1 + "" },
       ];
       this.$emit("update:products", this.products);
+    },
+    created() {
+      [
+        {
+          id: "1",
+          img:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS7ekQ3gBH4qgpA_rFjIi5BRHelutd--Q0xhf76XENxHC_gpsIZA",
+          title: "MacBook",
+          description:
+            "Quand nous avons créé le MacBook, nous avons tout simplement tenté l impossible.C est le plus fin et le plus léger de nos ordinateurs portables",
+          price: 1500,
+        },
+        {
+          id: "2",
+          img:
+            "https://static.fnac-static.com/multimedia/Images/FR/MDM/e2/0e/1a/1707746/1540-0/tsp20180327114010/PC-Portable-Gaming-Acer-Predator-21-X-GX21-71-76VC-21-Incurve.jpg",
+          title: "Predator",
+          description:
+            "The GPU. The source of any competent, powerful gaming machine. With next-gen solutions from NVIDIA® and AMD, this source is overflowing.",
+          price: 2300,
+        },
+        {
+          id: "3",
+          img:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS7ekQ3gBH4qgpA_rFjIi5BRHelutd--Q0xhf76XENxHC_gpsIZA",
+          title: "MacBook",
+          description:
+            "Quand nous avons créé le MacBook, nous avons tout simplement tenté l impossible.C est le plus fin et le plus léger de nos ordinateurs portables",
+          price: 1500,
+        },
+        {
+          id: "4",
+          img:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS7ekQ3gBH4qgpA_rFjIi5BRHelutd--Q0xhf76XENxHC_gpsIZA",
+          title: "MacBook",
+          description:
+            "Quand nous avons créé le MacBook, nous avons tout simplement tenté l impossible.C est le plus fin et le plus léger de nos ordinateurs portables",
+          price: 1500,
+        },
+        {
+          id: "5",
+          img:
+            "https://static.fnac-static.com/multimedia/Images/FR/MDM/e2/0e/1a/1707746/1540-0/tsp20180327114010/PC-Portable-Gaming-Acer-Predator-21-X-GX21-71-76VC-21-Incurve.jpg",
+          title: "Predator",
+          description:
+            "The GPU. The source of any competent, powerful gaming machine. With next-gen solutions from NVIDIA® and AMD, this source is overflowing.",
+          price: 2300,
+        },
+        {
+          id: "6",
+          img:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS7ekQ3gBH4qgpA_rFjIi5BRHelutd--Q0xhf76XENxHC_gpsIZA",
+          title: "MacBook",
+          description:
+            "Quand nous avons créé le MacBook, nous avons tout simplement tenté l impossible.C est le plus fin et le plus léger de nos ordinateurs portables",
+          price: 1500,
+        },
+      ].forEach((p) => {
+        this.$http.post(
+          "https://boutique-6967a.firebaseio.com/products.json",
+          p
+        );
+      });
     },
   },
 });
